@@ -1,5 +1,13 @@
 @import '../../styles/styles.scss';
 
-.courseCard{
-    background-color: red !important;
+.course-card{
+    height: 100%;
+    font-weight: 900;
+    &-description{
+        font-weight: 400;
+        font-size: 0.8rem;
+    }
+    &-description, &-name, &-price{
+        margin: 0.5rem 0rem;
+    }
 }

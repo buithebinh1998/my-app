@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CoursePage from './pages/coursePage/coursePage';
+import CoursePage from './pages/coursePage/CoursePage';
 
 function App() {
   return (
