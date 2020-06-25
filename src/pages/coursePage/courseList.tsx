@@ -28,7 +28,7 @@ const CourseList = () => {
 
     const loadCourseData = courseData.map((item) => {
         return(
-            <Col key={item.courseID}>
+            <Col key={item.courseID} style={{marginBottom:'1rem'}}>
                 <CourseCard courseImgLink={item.courseImgLink} courseName={item.courseName} courseDescription={item.courseDescription} coursePrice={item.coursePrice}/>
             </Col>
         )

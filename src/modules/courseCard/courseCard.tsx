@@ -10,7 +10,7 @@ interface Props {
 
 const CourseCard: React.FC<Props> = ({courseImgLink, courseName, courseDescription, coursePrice}) => {
     return(
-        <Card className="course-card">
+        <Card className="course-card" style={{borderColor:'#7e7e7e'}}>
             <CardImg src={`https://drive.google.com/uc?export=view&id=${courseImgLink}`} alt=""/>
             <CardBody>
                 <div className="course-card-name">{courseName}</div>
