@@ -1,5 +1,13 @@
+@import './../../styles/styles.scss';
+
 .course-form{
     font-weight: 900;
     text-align: center;
     margin: 1rem 0;
+    font-size: 2rem;
+}
+
+.error-message{
+    font-weight: 900;
+    color: $red;
 }

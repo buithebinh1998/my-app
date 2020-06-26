@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import CourseCard from '../../modules/courseCard/CourseCard'
 import {Container, Row, Col} from 'reactstrap'
-import axios from 'axios'
+import useCourse from './../../store/Store'
 
 interface Items {
     courseID: string;
@@ -12,21 +12,13 @@ interface Items {
 }
 
 const CourseList = () => {
-    const [courseData, setCourseData] = useState<Items[]>([]);
+    const [state, actions] = useCourse();    
+    
     useEffect(()=>{
-        axios
-            .get(
-                "https://5ef2b40425da2f001622827d.mockapi.io/course",
-            )
-            .then((response) => {
-                setCourseData(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+        actions.fetchCourse();
+    }, [actions]);
 
-    const loadCourseData = courseData.map((item) => {
+    const loadCourseData = state.course.map((item: any) => {
         return(
             <Col key={item.courseID} style={{marginBottom:'1rem'}}>
                 <CourseCard courseImgLink={item.courseImgLink} courseName={item.courseName} courseDescription={item.courseDescription} coursePrice={item.coursePrice}/>
