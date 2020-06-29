@@ -18,16 +18,16 @@ const courseSchema = Yup.object().shape({
         .required("Course name is required!"),
     courseDescription: Yup.string()
         .min(2, "Description is too short!")
-        .max(50, "Description is is too long!")
+        .max(1000, "Description is is too long!")
         .required("Description is required!"),
     coursePrice: Yup.number()
         .required("Course price is required!")
         .typeError("Course price must be a number!"),
 });
 
-const CreateCourseFunc = (payload: any) => {
+const CreateCourseWrapper = (props: any) => {
     const [, actions] = useCourse();
-    actions.createCourse(payload);
+    return <CreateCourseFormFormik {...props} createCourse = {actions.createCourse} />
 }
 
 const CreateCourseForm = ({ values, handleSubmit, handleChange }: any) => {
@@ -80,21 +80,29 @@ const CreateCourseFormFormik = withFormik({
         return{
             courseName: '',
             courseDescription: '',
-            coursePrice: ''
+            coursePrice: 0
         };
     },
     validationSchema: courseSchema,
-    handleSubmit: (values) => {
-        const payload: Props;
+    handleSubmit: (values, {props}: any) => {
+        const payload: Props = {
+            courseID: "5",
+            courseDescription : "",
+            courseImgLink : "1zIXo2s6TqKL2-B_5nUJALXB-oojN8dgu",
+            coursePrice : "",
+            courseName : ""
+        };
+        const showPriceString = new Intl.NumberFormat("de-DE").format(values.coursePrice);
         payload.courseName = values.courseName;
         payload.courseDescription = values.courseDescription;
-        payload.coursePrice = values.coursePrice;
+        payload.coursePrice = showPriceString+'Đ';
         payload.courseImgLink = "1zIXo2s6TqKL2-B_5nUJALXB-oojN8dgu";
         payload.courseID = "5";
+        props.createCourse(payload);
         console.log(payload);
     },
 
 })(CreateCourseForm);
 
 
-export default CreateCourseFormFormik;
+export default CreateCourseWrapper;

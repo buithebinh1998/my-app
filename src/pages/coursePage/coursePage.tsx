@@ -1,11 +1,12 @@
 import React from 'react'
 import CourseList from './CourseList';
 import CreateCourseForm from '../../modules/courseForm/CreateCourseForm';
+import Header from '../../modules/header/Header';
 
 const CoursePage = () => {
     return(
         <>
-            <header>ABC</header>
+            <Header/>
             <CreateCourseForm/>
             <CourseList/>
             <footer>BCD</footer>

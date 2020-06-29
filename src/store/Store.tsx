@@ -16,7 +16,6 @@ const actions = {
             )
             .then((response) => {
                 console.log(response.data);
-                console.log(getState().course);
                 setState({
                     course: response.data
                 });
