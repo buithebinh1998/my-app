@@ -26,10 +26,17 @@ const actions = {
     },
 
     createCourse : (payload: any) => ({ setState, getState } : any) => {
-        const newCourse = [...getState().course];
-        setState({
-            course: [...newCourse, payload],
-        }); 
+        axios
+            .post(
+                "https://5ef2b40425da2f001622827d.mockapi.io/course",
+                payload
+            )
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 };
 

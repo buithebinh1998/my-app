@@ -1,12 +1,12 @@
 import React from 'react'
-import CourseList from '../../modules/course/courseList/CourseList';
-import Header from '../../modules/header/Header';
+import CreateCourseForm from '../../../modules/course/courseForm/CreateCourseForm';
+import Header from '../../../modules/header/Header';
 
 const CoursePage = () => {
     return(
         <>
             <Header/>
-            <CourseList/>
+            <CreateCourseForm/>
             <footer>BCD</footer>
         </>
     )

@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import './Header.scss';
+import {NavLink as RRNavLink} from 'react-router-dom'
+import logoBubuEdu from '../../assets/img/BubuEdu.png'
 import {
   Collapse,
   Navbar,
@@ -11,7 +14,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText
+  Button
 } from 'reactstrap';
 
 const Header = () => {
@@ -22,34 +25,51 @@ const Header = () => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">BubuEdu</NavbarBrand>
+        <NavbarBrand tag={RRNavLink} exact to='/'>
+          <span> 
+            <img className="header-logo" src={logoBubuEdu} alt=""/>
+          </span>
+          <span className="header-name">BubuEdu</span>
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink tag={RRNavLink} exact to='/'>Home</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Course Category
+                Teachers
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu left>
                 <DropdownItem>
-                  Development
+                  Create Teachers
                 </DropdownItem>
                 <DropdownItem>
-                  Business
+                  All Teachers
                 </DropdownItem>
-                <DropdownItem>
-                  Marketing
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Courses
+              </DropdownToggle>
+              <DropdownMenu left>
+                <DropdownItem tag={RRNavLink} exact to='/courses/create'>
+                  Create Courses
+                </DropdownItem>
+                <DropdownItem tag={RRNavLink} exact to='/courses'>
+                  All Courses
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          <div className="mr-4">
+            <Button color="success">Sign up</Button>
+          </div>
+          <div>
+            <Button color="warning">Login</Button>
+          </div>
         </Collapse>
       </Navbar>
     </div>
