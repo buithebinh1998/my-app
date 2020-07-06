@@ -1,5 +1,8 @@
 import React from 'react';
 import { Col, Button, FormGroup, Label, Input, Container, Form } from 'reactstrap';
+import {withRouter} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './CreateCourseForm.scss';
 import * as Yup from 'yup';
 import useCourse from '../../../store/Store'
@@ -32,6 +35,7 @@ const CreateCourseWrapper = (props: any) => {
 
 const CreateCourseForm = ({ values, handleSubmit, handleChange }: any) => {
     return(
+        <>
         <Container style={{marginBottom: '1rem'}}>
             <div className="course-form">Course Form Management</div>
             
@@ -65,7 +69,7 @@ const CreateCourseForm = ({ values, handleSubmit, handleChange }: any) => {
                 <FormGroup row>
                     <Label for="coursePrice" sm={4}>Course Price:</Label>
                     <Col sm={8}>
-                        <Input onChange={handleChange} type="text" name="coursePrice" id="coursePrice" placeholder="Course Price" value={values.coursePrice}/>
+                        <Input onChange={handleChange} type="number" name="coursePrice" id="coursePrice" placeholder="Course Price" value={values.coursePrice}/>
                     </Col>
                     <Col  className="error-message" sm={{size: '8', offset:'4'}}>
                         <ErrorMessage name="coursePrice"/>
@@ -74,6 +78,8 @@ const CreateCourseForm = ({ values, handleSubmit, handleChange }: any) => {
                 
             </Form>
         </Container>
+        <ToastContainer />
+        </>
     )
 }
 
@@ -87,24 +93,31 @@ const CreateCourseFormFormik = withFormik({
     },
     validationSchema: courseSchema,
     handleSubmit: (values, {props}: any) => {
-        const payload: Props = {
-            courseID: "5",
+        let history = props.history;
+        let payload: Props = {
+            courseID: "",
             courseDescription : "",
-            courseImgLink : "1zIXo2s6TqKL2-B_5nUJALXB-oojN8dgu",
+            courseImgLink : "",
             coursePrice : "",
             courseName : ""
         };
-        const showPriceString = new Intl.NumberFormat("de-DE").format(values.coursePrice);
-        payload.courseName = values.courseName;
-        payload.courseDescription = values.courseDescription;
-        payload.coursePrice = showPriceString+'Đ';
-        payload.courseImgLink = "1zIXo2s6TqKL2-B_5nUJALXB-oojN8dgu";
-        payload.courseID = "5";
+        const showPriceString = (values.coursePrice === 0) ? 'Free' : new Intl.NumberFormat("de-DE").format(values.coursePrice) + 'Đ';
+        payload = {
+            courseID: '_' + Math.random().toString(36).substr(2, 9),
+            courseDescription: values.courseDescription,
+            courseImgLink: '1zIXo2s6TqKL2-B_5nUJALXB-oojN8dgu',
+            courseName: values.courseName,
+            coursePrice: showPriceString
+        }
         props.createCourse(payload);
+        toast.success('🚀 Create course successfully!', {autoClose: 2000});
+        setTimeout(() => {
+            history.push('/courses')
+        }, 2000)
         console.log(payload);
     },
 
 })(CreateCourseForm);
 
 
-export default CreateCourseWrapper;
+export default withRouter(CreateCourseWrapper);
